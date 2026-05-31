@@ -1,3 +1,36 @@
+## Try it out
+
+Start the two mock servers and the load balancer in separate terminals:
+
+```bash
+python mock_server_1.py
+python mock_server_2.py
+python main.py
+```
+
+Then send a few requests to the load balancer:
+
+```bash
+curl http://localhost:8000/hello
+curl http://localhost:8000/hello
+curl http://localhost:8000/hello
+```
+
+Each response will show which server handled it and a running count of requests per server:
+
+```json
+{
+  "status_code": 200,
+  "body": {"server": "localhost:8001", "path": "/hello", "method": "GET"},
+  "server_stats": {
+    "http://localhost:8001": 2,
+    "http://localhost:8002": 1
+  }
+}
+```
+
+---
+
 ### Personal notes
 A load balancer is a reverse proxy that forwards the request to a server based on a traffic distribution algorithm (how and when the traffic is distributed). One of the algorithms is **round robin**, which basically assigns the requests sequentially to the servers (request 1 go to server 1, r2 to s2, r3 to s1 and so on (if 2 servers)). Another one is the **smart LB** where the LB constantly talks with the server to get some metrics. The metrics can be number of requests, system metrics, etc. 
 The **goal** of a load balancer is to not overload the server. It solves the **single point of failure problem**. Achieves higher **reliability**, **performance**, **availability** and **scalability**(hard to scale without a load balancer). It's whole purpose is to **distribute traffic.** 

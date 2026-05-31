@@ -1,6 +1,5 @@
-from typing import TypedDict
 import httpx
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request
 
 router = APIRouter()
 
@@ -20,8 +19,10 @@ async def forward(path: str, request: Request):
             params=dict(request.query_params),
         )
 
-    return Response(
-        content=response.content,
-        status_code=response.status_code,
-        headers=dict(response.headers),
-    )
+    stats = {server.url: server.received_requests for server in lb.server_list}
+
+    return {
+        "status_code": response.status_code,
+        "body": response.json() if response.headers.get("content-type", "").startswith("application/json") else response.text,
+        "server_stats": stats,
+    }
