@@ -1,4 +1,4 @@
-#### Personal notes: 
+#### Personal notes
 
 A load balancer is a reverse proxy that forwards the request to a server based on a traffic distribution algorithm (how and when the traffic is distributed). One of the algorithms is **round robin**, which basically assigns the requests sequentially to the servers (request 1 go to server 1, r2 to s2, r3 to s1 and so on (if 2 servers)). Another one is the **smart LB** where the LB constantly talks with the server to get some metrics. The metrics can be number of requests, system metrics, etc. 
 The **goal** of a load balancer is to not overload the server. It solves the **single point of failure problem**. Achieves higher **reliability**, **performance**, **availability** and **scalability**(hard to scale without a load balancer). It's whole purpose is to **distribute traffic.** 
