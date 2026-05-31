@@ -16,7 +16,7 @@ curl http://localhost:8000/hello
 curl http://localhost:8000/hello
 ```
 
-Requests are distributed using **round robin** — each request goes to the next server in sequence. Each response will show which server handled it and a running count of requests per server:
+Requests are distributed using round robin(see personal notes below). Each request goes to the next server in sequence. Each response will show which server handled it and a running count of requests per server:
 
 ```json
 {
